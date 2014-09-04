@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * (c) Lauri Savolainen / intoit oy
  */
 
 package fi.intoit.smsstation;
@@ -12,7 +10,9 @@ package fi.intoit.smsstation;
  */
 public class Main {
     public static void main(String[] Args) {
-        System.out.println("TESTINGS");
+        Settings settings = new Settings();
+        settings.setGSMNumber("050-555333222");
+        System.out.println("Asetettiin puhelinnumeroksi: " + settings.getGSMNumber());
         
     }
 }
