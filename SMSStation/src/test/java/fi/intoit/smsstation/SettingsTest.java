@@ -12,14 +12,6 @@ import static org.junit.Assert.*;
 public class SettingsTest {
 
     @Test
-    public void tryAlwaysPasstest() {
-
-    }
-    @Test
-    public void storeGSMNumber() {
-    //assert(false);
-    }
-    @Test
     public void getRightGSMNumber() {
         Settings settings = new Settings();
         String number = "0404040404";
