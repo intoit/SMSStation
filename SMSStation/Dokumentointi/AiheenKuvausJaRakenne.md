@@ -23,6 +23,9 @@ Toinen järjestelmä
 * Rajapinta ulkoiseen järjestelmään vastaanotettujen viestien lähettämiseen
 * Rajapinta laitteen rekisteröimisestä toiseen järjestelmään
 
+- Järjestelmään voidaan asettaa maksimi raja paljonko viestejä voidaan lähettää
+  kuukaudessa ja rajan lähestyessä siitä lähetetään operaattorille tekstiviesti
+
 
 
 
