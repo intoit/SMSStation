@@ -22,4 +22,15 @@ public class SettingsTest {
         settings.setGSMNumber(number);
         assertEquals("Set number is same as get",number,settings.getGSMNumber());
     }
+    @Test
+    public void CheckSettingUsername() {
+        settings.setUsername("Uuseri");
+        assertEquals("Uuseri", settings.getUsername());
+    }
+    @Test
+    public void CheckSettingsPassword() {
+        settings.setPassword("Passu98");
+        assertEquals("Passu98", settings.getPassword());
+    }
+    
 }
