@@ -20,4 +20,7 @@ public class SMSStore {
     public int getNumberOfMessages() {
         return messages.size();
     }
+    public SMS getMessage(int messageInt) {
+        return messages.get(messageInt);
+    }
 }

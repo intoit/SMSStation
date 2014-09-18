@@ -14,5 +14,8 @@ public class Main {
         settings.setGSMNumber("050-555333222");
         System.out.println("Asetettiin puhelinnumeroksi: " + settings.getGSMNumber());
         
+        SMSStore store = new SMSStore();
+        QueueWorker queueWorker = new QueueWorker(store);
+        
     }
 }

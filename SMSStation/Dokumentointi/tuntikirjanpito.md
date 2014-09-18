@@ -4,3 +4,5 @@
 9.9.2014    5h  Projektin suunnittelua, opiskelua TDD:stä, työkalujen viilausta
 10.9.2014   4h  Luokkien lisäämistä, kaavioiden piirtoa
 11.9.2014   3h  Suunnittelua, työkalujen testaamista.
+17.9.2014	3h	Kaavioiden piirtoa
+18.9.2014	8h	Ohjelmointia, suunnnittelua, testausta
