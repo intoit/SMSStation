@@ -32,4 +32,7 @@ public class QueueWorker {
         
         
     }
+    public void printQueue() {
+        queue.printQueue();
+    }
 }

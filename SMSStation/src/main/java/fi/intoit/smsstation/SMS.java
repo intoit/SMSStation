@@ -9,7 +9,7 @@ import java.util.Date;
  *
  * @author lasa
  */
-public class SMS {
+public class SMS implements Comparable<SMS> {
     private String Status;
     private String Content;
     private Date Created;
@@ -20,6 +20,19 @@ public class SMS {
         this.Content = Content;
         this.Status = "created";
         this.Created = new Date();
+    }
+    @Override
+    // FIX: CHECK THIS
+    public int compareTo(SMS viesti) {
+        if (this.Created.after(viesti.Created)) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+    @Override
+    public String toString() {
+        return "To:" +this.ToNumber+", content: "+this.Content+ "Status: " + this.Status;
     }
     public String getToNumber() {
         return ToNumber;

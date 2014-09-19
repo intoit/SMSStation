@@ -6,18 +6,18 @@
 
 package fi.intoit.smsstation;
 import java.util.ArrayList;
-
+import java.util.PriorityQueue;
 /**
  *
  * @author lasa
  */
 public class SMSQueue {
-    private ArrayList<SMS> waiting;
+    private PriorityQueue<SMS> waiting;
     private SMSStore store;
     
     SMSQueue(SMSStore store) {
         this.store = store;
-        waiting = new ArrayList<>();
+        waiting = new PriorityQueue<>();
         // Let's add all queued messages in waiting array
         for (int i =0; i < store.getNumberOfMessages(); i++) {
             if (this.store.getMessage(i).getStatus().contains("queued")) {
@@ -35,9 +35,16 @@ public class SMSQueue {
             // FIX: dummy solution
             return new SMS("","");
         } else {
-            return this.waiting.get(1);
+            return this.waiting.poll();
         }
         
+    }
+    public void printQueue() {
+        PriorityQueue<SMS> tempQueue = waiting;
+        for (int i = 0; i < tempQueue.size()+1; i++) {
+            SMS temp = tempQueue.poll();
+            System.out.println(temp.toString());
+        }
     }
     // Just in case manual refresh of waiting queue from messages
     public void refreshQueue() {
