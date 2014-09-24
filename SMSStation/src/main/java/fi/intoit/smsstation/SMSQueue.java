@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package fi.intoit.smsstation;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 /**
- *
- * @author lasa
+ * SMS Queue keeps messages in queue that haven't been sent yet
+ * @author (c) Lauri Savolainen / intoit oy
  */
 public class SMSQueue {
     private PriorityQueue<SMS> waiting;
@@ -27,9 +21,17 @@ public class SMSQueue {
         
         
     }
+    /**
+     * Get Queue Length
+     * @return 
+     */
     public int getQueueLength() {
         return waiting.size();
     }
+    /**
+     * Get next SMS that need sending
+     * @return 
+     */
     public SMS getNextSMS() {
         if (this.waiting.isEmpty()) {
             // FIX: dummy solution
@@ -39,6 +41,9 @@ public class SMSQueue {
         }
         
     }
+    /**
+     * Prints Messages in Queue
+     */
     public void printQueue() {
         PriorityQueue<SMS> tempQueue = waiting;
         for (int i = 0; i < tempQueue.size()+1; i++) {
@@ -46,7 +51,9 @@ public class SMSQueue {
             System.out.println(temp.toString());
         }
     }
-    // Just in case manual refresh of waiting queue from messages
+    /**
+     * Just in case manual refresh of waiting queue from messages
+     */    
     public void refreshQueue() {
         // Let's clear the list
         this.waiting.clear();

@@ -1,5 +1,7 @@
-/*
- * (c) Lauri Savolainen / intoit oy
+/**
+ * @author (c) Lauri Savolainen / intoit oy
+ * @since 2014-09-24
+ * 
  */
 
 package fi.intoit.smsstation;
@@ -15,6 +17,9 @@ public class QueueWorker {
         this.queue = new SMSQueue(store);
     }
     
+    /**
+     * Handles messages in queue
+     */
     public void HandleMessages() {
         
         if (queue.getQueueLength() > 0) {
@@ -32,6 +37,9 @@ public class QueueWorker {
         
         
     }
+    /**
+     * Print's queue
+     */
     public void printQueue() {
         queue.printQueue();
     }

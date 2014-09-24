@@ -6,11 +6,17 @@
 package fi.intoit.smsstation;
 
 /**
- *
- * @author lasa
+ * Class for Settings
+ * @author (c) Lauri Savolainen / intoit oy
  */
 public class Settings {
+    /**
+     * Outbound GSM Number
+     */
     private String GSMNumber;
+    /**
+     * Username and password for external system
+     */
     private String Username;
     private String Password;
 
