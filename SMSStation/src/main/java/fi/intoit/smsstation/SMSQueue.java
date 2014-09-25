@@ -46,9 +46,13 @@ public class SMSQueue {
      */
     public void printQueue() {
         PriorityQueue<SMS> tempQueue = waiting;
-        for (int i = 0; i < tempQueue.size()+1; i++) {
-            SMS temp = tempQueue.poll();
-            System.out.println(temp.toString());
+        if (tempQueue.isEmpty()) {
+             System.out.println("Empty Queue");
+        } else {
+            for (int i = 0; i < tempQueue.size()+1; i++) {
+                SMS temp = tempQueue.poll();
+                System.out.println(temp.toString());
+            }
         }
     }
     /**

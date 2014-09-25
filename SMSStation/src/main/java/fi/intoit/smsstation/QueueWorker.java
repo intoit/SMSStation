@@ -15,6 +15,7 @@ public class QueueWorker {
     
     QueueWorker(SMSStore store) {
         this.queue = new SMSQueue(store);
+        queue.refreshQueue();
     }
     
     /**

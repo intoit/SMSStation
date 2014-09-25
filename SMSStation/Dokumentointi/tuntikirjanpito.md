@@ -7,3 +7,5 @@
 17.9.2014	3h	Kaavioiden piirtoa
 18.9.2014	8h	Ohjelmointia, suunnnittelua, testausta
 19.9.2014	2h	Refaktorointia Priorityqueueksi
+24.9.2014	3h	Koodikatselmointi, javadoc aloitusta
+25.9.2014	5h	GUI-tekemistä, suunnittelua

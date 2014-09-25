@@ -15,6 +15,6 @@ package fi.intoit.smsstation;
 public class TelephonyMock {
     
     public void sendTextMessage (String destinationAddress, String scAddress, String text) {
-        
+        System.out.println("Message sent: " + text);
     }
 }
