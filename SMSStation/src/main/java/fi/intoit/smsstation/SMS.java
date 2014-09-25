@@ -24,7 +24,7 @@ public class SMS implements Comparable<SMS> {
     @Override
     // FIX: CHECK THIS
     public int compareTo(SMS viesti) {
-        if (this.Created.after(viesti.Created)) {
+        if (this.Created.after(Created)) {
             return 1;
         } else {
             return -1;

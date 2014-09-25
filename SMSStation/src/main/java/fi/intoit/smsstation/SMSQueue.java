@@ -4,11 +4,16 @@ import java.util.PriorityQueue;
 /**
  * SMS Queue keeps messages in queue that haven't been sent yet
  * @author (c) Lauri Savolainen / intoit oy
+ * 
  */
 public class SMSQueue {
     private PriorityQueue<SMS> waiting;
     private SMSStore store;
-    
+   
+    /**
+    * Connect SMSQueue to SMSStore
+    * @param store 
+    */ 
     SMSQueue(SMSStore store) {
         this.store = store;
         waiting = new PriorityQueue<>();
@@ -22,15 +27,22 @@ public class SMSQueue {
         
     }
     /**
+     * Add SMS to Queue
+     * @param message 
+     */
+    public void addtoQueue(SMS message) {
+        waiting.add(message);
+    }
+    /**
      * Get Queue Length
-     * @return 
+     * @return INT 
      */
     public int getQueueLength() {
         return waiting.size();
     }
     /**
      * Get next SMS that need sending
-     * @return 
+     * @return SMS Message
      */
     public SMS getNextSMS() {
         if (this.waiting.isEmpty()) {
@@ -56,7 +68,7 @@ public class SMSQueue {
         }
     }
     /**
-     * Just in case manual refresh of waiting queue from messages
+     * Just in case manual refresh of waiting queue from messages FIX?
      */    
     public void refreshQueue() {
         // Let's clear the list

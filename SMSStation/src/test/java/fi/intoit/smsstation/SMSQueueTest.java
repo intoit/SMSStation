@@ -38,4 +38,27 @@ public class SMSQueueTest {
             // needs thinking
             assertEquals(new SMS("","").getToNumber(),queue.getNextSMS().getToNumber());
     }
+    @Test
+    public void addOneMessagetoQueue() {
+        assertEquals(0,queue.getQueueLength());
+        queue.addtoQueue(new SMS("04444","Neljäs menee quee"));
+        assertEquals(1,queue.getQueueLength());
+        
+    }
+    @Test
+    public void addTwoMessagestoQueue() {
+        assertEquals(0,queue.getQueueLength());
+        queue.addtoQueue(store.getMessage(1));
+        queue.addtoQueue(new SMS("04444","Neljäs menee quee"));
+        assertEquals(2,queue.getQueueLength());
+    }
+    @Test
+    public void addTwoMessageAnGetOne() {
+        assertEquals(0,queue.getQueueLength());
+        queue.addtoQueue(store.getMessage(1));
+        queue.addtoQueue(new SMS("04444","Neljäs menee quee"));
+        assertEquals(2,queue.getQueueLength());
+        SMS next = queue.getNextSMS();
+        assertEquals(1,queue.getQueueLength());
+    }
 }

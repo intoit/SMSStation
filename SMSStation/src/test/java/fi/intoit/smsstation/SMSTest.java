@@ -15,12 +15,14 @@ import java.util.Date;
  */
 public class SMSTest {
     SMS smsMessage;
+    SMS secondMessage;
     Date now;
 
     @Before
     public void setupUp() {
         smsMessage = new SMS("05055555","Testiviesti");
         now = new Date();
+        
     }
     @Test
     public void CreatedMessageGoingtoRightNumber() {
@@ -43,5 +45,24 @@ public class SMSTest {
     @Test
     public void CreationDateisright() {
         assertEquals(now, smsMessage.getCreated());
+    }
+    @Test
+    public void NewerSMSisSmaller() {
+        //FIX
+        secondMessage = new SMS("0222","Tokaviesti");
+        secondMessage.setCreated(new Date(new Date().getTime()+(1000 * 60 * 60 * 24)));
+        Date now2 = new Date();
+        assertEquals(-1, smsMessage.compareTo(secondMessage));
+        //assertEquals(1, secondMessage.compareTo(smsMessage));
+
+    }
+    @Test 
+    public void setCreatedDate() {
+        // Really weird...FIX
+        secondMessage = new SMS("0222","Tokaviesti");
+        Date old = secondMessage.getCreated();
+        secondMessage.setCreated(new Date(new Date().getTime()+(1000 * 60 * 60 * 24)));
+        assertEquals(false, secondMessage.getCreated().equals(old));
+        
     }
 }
