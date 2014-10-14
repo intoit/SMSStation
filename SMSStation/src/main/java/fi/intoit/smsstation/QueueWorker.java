@@ -18,6 +18,9 @@ public class QueueWorker {
         queue.refreshQueue();
     }
     
+    public void refreshQueue() {
+        this.queue.refreshQueue();
+    }
     /**
      * Handles messages in queue
      */

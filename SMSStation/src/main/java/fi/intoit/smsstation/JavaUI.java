@@ -6,11 +6,15 @@
 package fi.intoit.smsstation;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 /**
  *
  * @author lasa
@@ -21,6 +25,7 @@ public class JavaUI implements Runnable  {
     // JUST FOR TESTING:
     private SMSStore store;
     private QueueWorker queueWorker;
+    
     public JavaUI() { 
         // JUST FOR TESTING
         store = new SMSStore();
@@ -33,7 +38,6 @@ public class JavaUI implements Runnable  {
         store.getMessage(1).setStatus("queued");
         store.getMessage(4).setStatus("queued");
         queueWorker = new QueueWorker(store);
-        queueWorker.printQueue();
         
     }
       @Override
@@ -53,13 +57,47 @@ public class JavaUI implements Runnable  {
             container.setLayout(layout);
             JLabel label = new JLabel("Queue:n koko: ");
             JButton button = new JButton("Handle Message!");
-            button.addActionListener(new UIListener(queueWorker));
+            JTextArea newSMS = new JTextArea(); 
+            JTextField newSMSNumber = new JTextField();
+            JButton newSMSButton = new JButton("Send SMS");
+            System.out.println("Tehdäänactionlisterner");
+
+
+            queueWorker.printQueue();
+            button.addActionListener(new UIListener());
+            newSMSButton.addActionListener(new NewSMSListener(store, newSMSNumber, newSMS));
             container.add(label);
             container.add(button);
+            container.add(newSMS);
+            container.add(newSMSNumber);
+            container.add(newSMSButton);
     
     }
 
     public JFrame getFrame() {
         return this.frame;
     }
+    
+    public class UIListener implements ActionListener {
+    //private QueueWorker qw;
+    
+    public UIListener() {
+       
+        System.out.println("uilisternerluotu:");
+        queueWorker.printQueue();
+
+        
+    }
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        SMS daa = new SMS("actionissa","");
+        daa.setStatus("queued");
+        store.addMessage(daa);
+        queueWorker.refreshQueue();
+        queueWorker.printQueue();
+        System.out.println("Action!!!!");
+        queueWorker.HandleMessages();
+        queueWorker.printQueue();
+    }
+}
 }
