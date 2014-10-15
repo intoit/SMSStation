@@ -32,7 +32,7 @@ public class SMS implements Comparable<SMS> {
     }
     @Override
     public String toString() {
-        return "To:" +this.ToNumber+", content: "+this.Content+ "Status: " + this.Status;
+        return "To: " +this.ToNumber+", content: "+this.Content+ ", Status: " + this.Status;
     }
     public String getToNumber() {
         return ToNumber;

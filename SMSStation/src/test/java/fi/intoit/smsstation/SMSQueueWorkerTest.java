@@ -13,17 +13,28 @@ import static org.junit.Assert.*;
 public class SMSQueueWorkerTest {
     SMSStore store;
     SMSQueue queue;
-    @Before
+    
+    SMS first;
+    SMS second;
+    SMS third;
+    
+    @Before        
     public void setupUp() {
         store = new SMSStore();
+        first = new SMS("0404","Eka Viesti");
+        second = new SMS("020202","Toka Viesti");
+        third = new SMS("118","Kolmas teskstari");
+        store.addMessage(first);
         
-        store.addMessage(new SMS("0404","Eka Viesti"));
-        store.addMessage(new SMS("020202","Toka Viesti"));
-        store.addMessage(new SMS("118","Kolmas teskstari"));
+        store.addMessage(second);
+        store.addMessage(third);
         queue = new SMSQueue(store);
     }
     @Test
-    public void handleMessages() {
-        
+    public void handleMessagesInRightOrder() {
+        third.setStatus("queued");
+        first.setStatus("queued");
+        queue.refreshQueue();
+        assertEquals("Not working",queue.getNextSMS(), third);
     }
 }

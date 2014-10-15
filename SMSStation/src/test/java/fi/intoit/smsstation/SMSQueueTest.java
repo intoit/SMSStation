@@ -36,7 +36,7 @@ public class SMSQueueTest {
     @Test
     public void getEmptyNextSMS() {
             // needs thinking
-            assertEquals(new SMS("","").getToNumber(),queue.getNextSMS().getToNumber());
+            assertEquals(null,queue.getNextSMS());
     }
     @Test
     public void addOneMessagetoQueue() {

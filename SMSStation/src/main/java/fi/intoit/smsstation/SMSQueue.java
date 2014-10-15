@@ -47,7 +47,8 @@ public class SMSQueue {
     public SMS getNextSMS() {
         if (this.waiting.isEmpty()) {
             // FIX: dummy solution
-            return new SMS("","");
+            //return new SMS("","");
+            return null;
         } else {
             return this.waiting.poll();
         }

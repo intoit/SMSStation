@@ -15,6 +15,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTable;
+
 /**
  *
  * @author lasa
@@ -59,15 +61,19 @@ public class JavaUI implements Runnable  {
             JButton button = new JButton("Handle Message!");
             JTextArea newSMS = new JTextArea(); 
             JTextField newSMSNumber = new JTextField();
-            JButton newSMSButton = new JButton("Send SMS");
+            JButton newSMSButton = new JButton("Put SMS to Qeueu");
             System.out.println("Tehdäänactionlisterner");
 
-
+                MessageTableModel MTM = new MessageTableModel(store);
+            final JTable table = new JTable(MTM);
+            
             queueWorker.printQueue();
-            button.addActionListener(new UIListener());
-            newSMSButton.addActionListener(new NewSMSListener(store, newSMSNumber, newSMS));
+//            button.addActionListener(new UIListener());
+            button.addActionListener(new UIListener(store, queueWorker, MTM));
+            newSMSButton.addActionListener(new NewSMSListener(store,MTM, newSMSNumber, newSMS));
             container.add(label);
             container.add(button);
+            container.add(table);
             container.add(newSMS);
             container.add(newSMSNumber);
             container.add(newSMSButton);
@@ -77,10 +83,10 @@ public class JavaUI implements Runnable  {
     public JFrame getFrame() {
         return this.frame;
     }
+    /*
     
     public class UIListener implements ActionListener {
     //private QueueWorker qw;
-    
     public UIListener() {
        
         System.out.println("uilisternerluotu:");
@@ -90,14 +96,16 @@ public class JavaUI implements Runnable  {
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
-        SMS daa = new SMS("actionissa","");
-        daa.setStatus("queued");
-        store.addMessage(daa);
+
+//        SMS daa = new SMS("actionissa","");
+//        daa.setStatus("queued");
+//        store.addMessage(daa);
+ 
         queueWorker.refreshQueue();
         queueWorker.printQueue();
         System.out.println("Action!!!!");
         queueWorker.HandleMessages();
         queueWorker.printQueue();
     }
-}
+}*/
 }

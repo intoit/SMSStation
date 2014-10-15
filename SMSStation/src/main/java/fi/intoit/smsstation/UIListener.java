@@ -7,19 +7,31 @@ import java.awt.event.ActionListener;
  */
 public class UIListener implements ActionListener {
     private QueueWorker qw;
-    
-    public UIListener(QueueWorker qw) {
+    private MessageTableModel mtm;
+    private SMSStore store;
+    public UIListener(SMSStore store, QueueWorker qw, MessageTableModel mtm) {
        
         System.out.println("uilisternerluotu:");
         this.qw = qw;
+        this.mtm = mtm;
+        this.store = store;
 
-        qw.printQueue();
+        this.qw.printQueue();
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
         qw.printQueue();
         System.out.println("Action!!!!");
         qw.HandleMessages();
-        qw.printQueue();
+        qw.refreshQueue();
+
+        SMS daa = new SMS("05050333","actionissa tehty");
+        daa.setStatus("queued");
+//        store.addMessage(daa);        
+        qw.refreshQueue();
+        
+        //qw.printQueue();
+        mtm.fireTableDataChanged();
+        
     }
 }

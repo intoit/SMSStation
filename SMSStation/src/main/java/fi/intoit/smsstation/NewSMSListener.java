@@ -17,15 +17,18 @@ public class NewSMSListener implements ActionListener {
     private SMSStore store;
     private JTextField number;
     private JTextArea message;
-    public NewSMSListener(SMSStore store, JTextField number, JTextArea message) {
+    private MessageTableModel tm;
+    public NewSMSListener(SMSStore store, MessageTableModel tm, JTextField number, JTextArea message) {
         this.store = store;
         this.number = number;
         this.message = message;
+        this.tm = tm;
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
         SMS newsms = new SMS(number.getText(),message.getText());
         newsms.setStatus("queued");
         store.addMessage(newsms);
+        tm.fireTableDataChanged();
     }
 }
