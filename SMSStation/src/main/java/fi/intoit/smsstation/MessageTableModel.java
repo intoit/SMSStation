@@ -27,13 +27,19 @@ public class MessageTableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-        String name = "??";
+        String name = "XXXXX";
         switch (column) {
             case 0:
-                name = "Status";
+                name = "Timestamp";
                 break;
             case 1:
-                name = "ID";
+                name = "Status";
+                break;
+            case 2:
+                name = "Content";
+                break;
+            case 3:
+                name = "To number";
                 break;
         }
         return name;

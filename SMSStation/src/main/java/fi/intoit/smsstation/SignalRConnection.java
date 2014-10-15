@@ -18,68 +18,18 @@ public class SignalRConnection {
         private HubConnection connection;
         private HubProxy hub;
         private SignalRFuture<Void> awaitConnection;
-        
-        SignalRConnection() {
-            connection = new HubConnection( host );
-            hub = connection.createHubProxy( "sMSHub" );
-
-            
-            startSignalRConnection();
-                
-
-
-        }
-
-        public void startSignalRConnection() {
-            awaitConnection = connection.start();
+        private SMSStore store;
+        private MessageTableModel MTM;
+        SignalRConnection(SMSStore store, MessageTableModel MTM)  {
+            this.store = store;
+            this.MTM = MTM;
+            this.connection = new HubConnection( host );
+            this.hub = connection.createHubProxy( "sMSHub" );
+            setupSubscriptions();
+            this.awaitConnection = connection.start();
             try {
-                awaitConnection.get();
-                
-
-                
-                hub.subscribe( new Object() {
-                    	public void SendSMS(String name,String message) {
-                            System.out.println("NY TULI");
-                        }
-                        
-                        public void Inform(String name,String message) {
-                            System.out.println("NY TULI i");
-                        }
-                        public void inform(String name) {
-                            System.out.println("NY TULI iinfoorm");
-                        }
-                });
-                
-                
-                hub.on( "inform", new SubscriptionHandler1<String>() {
-                    @Override
-                    public void run( String status ) {
-                       // Since we are updating the UI,
-                       // we need to use a handler of the UI thread.
-                       System.out.println("NTYTYTYT");
-                       } 
-                    }, String.class );
-                
-                
+                this.awaitConnection.get();
                 hub.invoke( "Inform", "SMSStation", "Connected" ).get();
-                hub.invoke( "SendSMS", "SMSStation", "SendSMSConnected" ).get();
-                
-                
-/*                hub.on("SendSMS", new SubscriptionHandler2<String, String>() {
-
-                    @Override
-                    public void run(String parameter1, String parameter2) {
-                        System.out.println("VIESTI" + parameter1 + " | " + parameter2);
-                    }
-                }, String.class, String.class);
-                
-                hub.on("SendSMS", new SubscriptionHandler1<String>() {
-                    @Override
-                    public void run(String parameter1) {
-                        System.out.println("VIESTI1" + parameter1);
-                    }
-                }, String.class);
-  */              
                 
             } catch (InterruptedException e) {
                 System.out.println("ERROR signalr" + e);
@@ -89,7 +39,27 @@ public class SignalRConnection {
             System.out.println("Connected to:" + host);
         }
  
+        public void setupSubscriptions() {
+                hub.subscribe( new Object() {
+                    	public void queueSMS(String name,String message) {
+                            store.addMessage(new SMS(name,message));
+                            MTM.fireTableDataChanged();
+                            System.out.println("debug:got these from signalr " + name + " : " + message);
+                        }
+                });
+                
+                /*
+                ANOTHER WAY
+                hub.on("broadcastMessage", new SubscriptionHandler2<String, String>() {
+
+                    @Override
+                    public void run(String parameter1, String parameter2) {
+                        System.out.println("VIESTI" + parameter1 + " | " + parameter2);
+                    }
+                }, String.class, String.class);
+                */
         
+        }
         
         public void sendInform(String message) {
             hub.invoke("Inform", "SMSStation", message);

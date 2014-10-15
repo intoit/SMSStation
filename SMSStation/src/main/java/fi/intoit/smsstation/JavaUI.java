@@ -28,6 +28,7 @@ public class JavaUI implements Runnable  {
     // JUST FOR TESTING:
     private SMSStore store;
     private QueueWorker queueWorker;
+    private MessageTableModel MTM;
     
     public JavaUI() { 
         // JUST FOR TESTING
@@ -42,15 +43,17 @@ public class JavaUI implements Runnable  {
         store.getMessage(4).setStatus("queued");
         queueWorker = new QueueWorker(store);
         
-        signal = new SignalRConnection();
+        signal = new SignalRConnection(store, MTM);
+        
     }
       @Override
     public void run() {
         frame = new JFrame("SMS Station");
-        frame.setPreferredSize(new Dimension(300, 500));
+        frame.setPreferredSize(new Dimension(600, 800));
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+                
         createComponents(frame.getContentPane());
 
         frame.pack();
@@ -69,7 +72,7 @@ public class JavaUI implements Runnable  {
             JButton newSMSButton = new JButton("Put SMS to Qeueu");
             System.out.println("Tehdäänactionlisterner");
 
-                MessageTableModel MTM = new MessageTableModel(store);
+            MessageTableModel MTM = new MessageTableModel(store);
             final JTable table = new JTable(MTM);
             
             queueWorker.printQueue();
