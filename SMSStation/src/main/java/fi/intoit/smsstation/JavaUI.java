@@ -17,13 +17,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 
+
 /**
  *
  * @author lasa
  */
 public class JavaUI implements Runnable  {
     private JFrame frame;
-    
+    private SignalRConnection signal;
     // JUST FOR TESTING:
     private SMSStore store;
     private QueueWorker queueWorker;
@@ -41,6 +42,7 @@ public class JavaUI implements Runnable  {
         store.getMessage(4).setStatus("queued");
         queueWorker = new QueueWorker(store);
         
+        signal = new SignalRConnection();
     }
       @Override
     public void run() {
@@ -53,7 +55,10 @@ public class JavaUI implements Runnable  {
 
         frame.pack();
         frame.setVisible(true);
+        
+        
     }
+    
     private void createComponents(Container container) {
             BoxLayout layout = new BoxLayout(container, BoxLayout.Y_AXIS);
             container.setLayout(layout);
@@ -83,29 +88,4 @@ public class JavaUI implements Runnable  {
     public JFrame getFrame() {
         return this.frame;
     }
-    /*
-    
-    public class UIListener implements ActionListener {
-    //private QueueWorker qw;
-    public UIListener() {
-       
-        System.out.println("uilisternerluotu:");
-        queueWorker.printQueue();
-
-        
-    }
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-
-//        SMS daa = new SMS("actionissa","");
-//        daa.setStatus("queued");
-//        store.addMessage(daa);
- 
-        queueWorker.refreshQueue();
-        queueWorker.printQueue();
-        System.out.println("Action!!!!");
-        queueWorker.HandleMessages();
-        queueWorker.printQueue();
-    }
-}*/
 }
