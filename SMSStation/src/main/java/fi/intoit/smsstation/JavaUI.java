@@ -74,7 +74,7 @@ public class JavaUI implements Runnable  {
             
             queueWorker.printQueue();
 //            button.addActionListener(new UIListener());
-            button.addActionListener(new UIListener(store, queueWorker, MTM));
+            button.addActionListener(new UIListener(store, queueWorker, MTM, signal));
             newSMSButton.addActionListener(new NewSMSListener(store,MTM, newSMSNumber, newSMS));
             container.add(label);
             container.add(button);

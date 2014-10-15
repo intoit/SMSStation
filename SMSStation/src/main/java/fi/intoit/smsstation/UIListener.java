@@ -9,13 +9,14 @@ public class UIListener implements ActionListener {
     private QueueWorker qw;
     private MessageTableModel mtm;
     private SMSStore store;
-    public UIListener(SMSStore store, QueueWorker qw, MessageTableModel mtm) {
+    private SignalRConnection signal;
+    public UIListener(SMSStore store, QueueWorker qw, MessageTableModel mtm, SignalRConnection signal) {
        
         System.out.println("uilisternerluotu:");
         this.qw = qw;
         this.mtm = mtm;
         this.store = store;
-
+        this.signal = signal;
         this.qw.printQueue();
     }
     @Override
@@ -24,12 +25,11 @@ public class UIListener implements ActionListener {
         System.out.println("Action!!!!");
         qw.HandleMessages();
         qw.refreshQueue();
-
+        signal.sendInform("Handlattiin!!");
         SMS daa = new SMS("05050333","actionissa tehty");
         daa.setStatus("queued");
 //        store.addMessage(daa);        
         qw.refreshQueue();
-        
         //qw.printQueue();
         mtm.fireTableDataChanged();
         
