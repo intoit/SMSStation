@@ -5,8 +5,9 @@
  */
 package fi.intoit.smsstation;
 import javax.swing.table.AbstractTableModel;
+import java.util.Date;
 /**
- *
+ * Model for showing all messages in Store
  * @author lasa
  */
 public class MessageTableModel extends AbstractTableModel {
@@ -48,12 +49,14 @@ public class MessageTableModel extends AbstractTableModel {
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         Class type = String.class;
-/*        switch (columnIndex) {
+        switch (columnIndex) {
             case 0:
+                //type = Date.class;
+                break;
             case 1:
                 type = Integer.class;
                 break;
-        }*/
+        }
         return type;
     }
 

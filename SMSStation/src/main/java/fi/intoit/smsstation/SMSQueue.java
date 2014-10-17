@@ -31,6 +31,7 @@ public class SMSQueue {
      * @param message 
      */
     public void addtoQueue(SMS message) {
+        message.setStatus("queued");
         store.addMessage(message);
         waiting.add(message);
     }
