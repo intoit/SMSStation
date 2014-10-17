@@ -7,15 +7,21 @@
 package fi.intoit.smsstation;
 
 /**
- *
+ * Class manages Queue
  * @author lasa
  */
-public class QueueWorker {
+public class QueueWorker implements Runnable {
     private SMSQueue queue;
-    
-    QueueWorker(SMSStore store) {
+    private Settings settings;
+    private Thread runner;
+    private boolean runQueue;
+    QueueWorker(SMSStore store, Settings settings) {
         this.queue = new SMSQueue(store);
+        this.settings = settings;
+        this.runQueue = true;
         queue.refreshQueue();
+        runner = new Thread(this);
+        runner.start();
     }
     
     public void refreshQueue() {
@@ -24,6 +30,19 @@ public class QueueWorker {
     /**
      * Handles messages in queue
      */
+    public void run() {
+        System.out.println("Starting thread");
+        while (runQueue) {
+            try {
+            Thread.sleep(settings.getSendingTimeLimit()*1000);
+            System.out.println("Running thread");
+            HandleMessages();
+            printQueue();
+        } catch (Exception e) {
+                
+                }
+        }
+    }
     public void HandleMessages() {
         
         if (queue.getQueueLength() > 0) {

@@ -19,7 +19,17 @@ public class Settings {
      */
     private String Username;
     private String Password;
+    /**
+     * Time in second's between trying to send another message
+     */
+    private int SendingTimeLimit;
 
+    public Settings() {
+        /**
+         * Default Sending timelimit is 10 seconds
+         */
+        this.SendingTimeLimit = 10;
+    }
     public String getUsername() {
         return Username;
     }
@@ -43,4 +53,10 @@ public class Settings {
         this.GSMNumber = number;
     }
     
+    public int getSendingTimeLimit() {
+        return this.SendingTimeLimit;
+    }
+    public void setSendingTimeLimit(int SendingTimeLimit) {
+        this.SendingTimeLimit = SendingTimeLimit;
+    }
 }

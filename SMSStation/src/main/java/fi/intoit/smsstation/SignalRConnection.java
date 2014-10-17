@@ -42,7 +42,9 @@ public class SignalRConnection {
         public void setupSubscriptions() {
                 hub.subscribe( new Object() {
                     	public void queueSMS(String name,String message) {
-                            store.addMessage(new SMS(name,message));
+                            SMS temp = new SMS(name,message);
+                            temp.setStatus("queued");
+                            store.addMessage(temp);
                             MTM.fireTableDataChanged();
                             System.out.println("debug:got these from signalr " + name + " : " + message);
                         }

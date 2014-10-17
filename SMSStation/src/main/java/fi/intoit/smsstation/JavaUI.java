@@ -29,6 +29,7 @@ public class JavaUI implements Runnable  {
     private SMSStore store;
     private QueueWorker queueWorker;
     private MessageTableModel MTM;
+    private Settings settings;
     
     public JavaUI() { 
         // JUST FOR TESTING
@@ -41,7 +42,7 @@ public class JavaUI implements Runnable  {
         store.addMessage(new SMS("555","femma teskstari"));
         store.getMessage(1).setStatus("queued");
         store.getMessage(4).setStatus("queued");
-        queueWorker = new QueueWorker(store);
+        queueWorker = new QueueWorker(store, new Settings());
         
         signal = new SignalRConnection(store, MTM);
         

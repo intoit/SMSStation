@@ -38,6 +38,7 @@ public class SMSQueue {
      * @return INT 
      */
     public int getQueueLength() {
+        refreshQueue();
         return waiting.size();
     }
     /**
@@ -48,6 +49,7 @@ public class SMSQueue {
         if (this.waiting.isEmpty()) {
             // FIX: dummy solution
             //return new SMS("","");
+            System.out.println("ITS EMPTY!!");
             return null;
         } else {
             return this.waiting.poll();
@@ -58,7 +60,9 @@ public class SMSQueue {
      * Prints Messages in Queue
      */
     public void printQueue() {
+        refreshQueue();
         PriorityQueue<SMS> tempQueue = waiting;
+        System.out.println(waiting.toString());
         if (tempQueue.isEmpty()) {
              System.out.println("Empty Queue");
         } else {
