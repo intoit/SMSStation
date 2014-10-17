@@ -3,7 +3,9 @@
  */
 
 package fi.intoit.smsstation;
-
+import fi.intoit.smsstation.UI.JavaUIWindow;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 /**
  *
  * @author lasa
@@ -15,13 +17,20 @@ public class Main {
      * @param Args
      */
     public static void main(String[] Args) {
-        Settings settings = new Settings();
-        settings.setGSMNumber("050-555333222");
-        System.out.println("Asetettiin puhelinnumeroksi: " + settings.getGSMNumber());
+        Settings settings;
+        SMSStore store;
+        MessageTableModel MTM;
+        QueueWorker qw;
+        SignalRConnection signal;
         
-
-        // Let's make ui
-        JavaUI ui = new JavaUI();
-        ui.run();
+        settings = new Settings();
+        store = new SMSStore();
+        qw = new QueueWorker(store, settings);
+        MTM = new MessageTableModel(store);
+        signal = new SignalRConnection(store, MTM);
+        
+        // Let's create UI and run it
+        JavaUIWindow Jui = new JavaUIWindow(store, MTM, qw, signal);
+        Jui.run();
     }
 }

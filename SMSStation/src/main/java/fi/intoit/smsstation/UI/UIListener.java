@@ -1,8 +1,13 @@
-package fi.intoit.smsstation;
+package fi.intoit.smsstation.UI;
+import fi.intoit.smsstation.MessageTableModel;
+import fi.intoit.smsstation.QueueWorker;
+import fi.intoit.smsstation.SMS;
+import fi.intoit.smsstation.SMSStore;
+import fi.intoit.smsstation.SignalRConnection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
- *
+ * Listener for Manually Handling messages
  * @author lasa
  */
 public class UIListener implements ActionListener {
@@ -22,15 +27,9 @@ public class UIListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         qw.printQueue();
-        System.out.println("Action!!!!");
         qw.HandleMessages();
+        signal.sendInform("Handled Message Manually!!");
         qw.refreshQueue();
-        signal.sendInform("Handlattiin!!");
-        SMS daa = new SMS("05050333","actionissa tehty");
-        daa.setStatus("queued");
-//        store.addMessage(daa);        
-        qw.refreshQueue();
-        //qw.printQueue();
         mtm.fireTableDataChanged();
         
     }

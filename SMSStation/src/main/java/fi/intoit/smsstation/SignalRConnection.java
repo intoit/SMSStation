@@ -10,8 +10,9 @@ import microsoft.aspnet.signalr.client.SignalRFuture;
 import microsoft.aspnet.signalr.client.hubs.SubscriptionHandler2;
 import microsoft.aspnet.signalr.client.hubs.SubscriptionHandler1;
 /**
- *
- * @author lasa
+ * Class for connecting SMS Station for another system
+ * Uses SignalR from Microsoft 
+ * @author Lauri Savolainen
  */
 public class SignalRConnection {
         private String host = "http://hystation.azurewebsites.net";
@@ -38,31 +39,30 @@ public class SignalRConnection {
             }
             System.out.println("Connected to:" + host);
         }
- 
+        /**
+         * Subscribe signalR function queueSMS that receives 
+         * Phone number and message from other system
+         * Crates new SMS and put it to Store and changes status to
+         * queued
+         */
         public void setupSubscriptions() {
                 hub.subscribe( new Object() {
-                    	public void queueSMS(String name,String message) {
-                            SMS temp = new SMS(name,message);
+                    	public void queueSMS(String number,String message) {
+                            SMS temp = new SMS(number,message);
+                            
                             temp.setStatus("queued");
                             store.addMessage(temp);
                             MTM.fireTableDataChanged();
-                            System.out.println("debug:got these from signalr " + name + " : " + message);
+                            System.out.println("debug:got these from signalr " + number + " : " + message);
                         }
                 });
-                
-                /*
-                ANOTHER WAY
-                hub.on("broadcastMessage", new SubscriptionHandler2<String, String>() {
-
-                    @Override
-                    public void run(String parameter1, String parameter2) {
-                        System.out.println("VIESTI" + parameter1 + " | " + parameter2);
-                    }
-                }, String.class, String.class);
-                */
+              
         
         }
-        
+        /**
+         * Send Message to SignalR-server
+         * @param message Message that needs to be sent to server
+         */
         public void sendInform(String message) {
             hub.invoke("Inform", "SMSStation", message);
         }
