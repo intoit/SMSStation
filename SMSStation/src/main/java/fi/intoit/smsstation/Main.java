@@ -9,6 +9,11 @@ package fi.intoit.smsstation;
  * @author lasa
  */
 public class Main {
+
+    /**
+     *
+     * @param Args
+     */
     public static void main(String[] Args) {
         Settings settings = new Settings();
         settings.setGSMNumber("050-555333222");

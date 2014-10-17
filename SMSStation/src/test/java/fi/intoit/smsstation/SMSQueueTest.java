@@ -50,7 +50,7 @@ public class SMSQueueTest {
         assertEquals(0,queue.getQueueLength());
         queue.addtoQueue(store.getMessage(1));
         queue.addtoQueue(new SMS("04444","Neljäs menee quee"));
-        assertEquals(2,queue.getQueueLength());
+        assertEquals("didn't get two messages",2,queue.getQueueLength());
     }
     @Test
     public void addTwoMessageAnGetOne() {
